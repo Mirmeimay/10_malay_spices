@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>10 Malay Spices</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --accent: #f4c27a;
+    --card-bg: rgba(255, 255, 255, 0.25);
+    --overlay-bg: rgba(0, 0, 0, 0.45);
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #fff;
+    background: url("Pictures/background.png") center/cover fixed;
+}
+
+/* Overlay */
+.overlay {
+    background-color: var(--overlay-bg);
+    min-height: 100vh;
+}
+
+/* Navigation */
+nav {
+    padding: 16px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 16px;
+    font-weight: 600;
+    position: relative;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    left: 0;
+    bottom: -5px;
+    background: var(--accent);
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* Hero */
+.hero {
+    text-align: center;
+    padding: 110px 20px 70px;
+    animation: fadeDown 1s ease;
+}
+
+.hero h1 {
+    font-size: 46px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    max-width: 720px;
+    margin: 0 auto 35px;
+    line-height: 1.7;
+}
+
+.hero a {
+    display: inline-block;
+    padding: 14px 34px;
+    background-color: var(--accent);
+    color: #000;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 40px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hero a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Features */
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    padding: 50px 20px;
+    max-width: 1050px;
+    margin: auto;
+}
+
+.feature-box {
+    background: var(--card-bg);
+    backdrop-filter: blur(6px);
+    border-radius: 18px;
+    padding: 30px 25px;
+    width: 280px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeUp 1s ease;
+}
+
+.feature-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+}
+
+.feature-box h3 {
+    margin-bottom: 12px;
+    font-size: 22px;
+    color: var(--accent);
+}
+
+.feature-box p {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+}
+
+/* Animations */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="overlay">
+
+<!-- Navigation -->
+<nav>
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT US</a>
+    <a href="function.html">FUNCTION</a>
+    <a href="characteristics.html">CHARACTERISTICS</a>
+    <a href="quiz.html">QUIZ</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <h1>Let’s Learn 10 Malay Spices</h1>
+    <p>
+        Explore aromatic and flavourful spices that define Malay cuisine.
+        Learn their functions, characteristics, and cultural significance
+        through an engaging and interactive experience.
+    </p>
+    <a href="function.html">Start Exploring</a>
+</section>
+
+<!-- Features -->
+<section class="features">
+    <div class="feature-box">
+        <h3>🌿 Traditional Spices</h3>
+        <p>
+            Discover spices commonly used in traditional Malay cooking
+            and understand their cultural importance.
+        </p>
+    </div>
+
+    <div class="feature-box">
+        <h3>🍲 Cooking Functions</h3>
+        <p>
+            Learn how each spice enhances flavour, aroma, and colour
+            in everyday Malay dishes.
+        </p>
+    </div>
+
+    <div class="feature-box">
+        <h3>🧠 Fun Quiz</h3>
+        <p>
+            Test your knowledge through quizzes and memory games
+            to reinforce what you have learned.
+        </p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    &copy; 2025 Let’s Learn 10 Malay Spices
+</footer>
+
+</div>
+<!-- Background Music -->
+<audio id="bgMusic" src="sounds/background-music.mp3" loop></audio>
+
+<script>
+const bgMusic = document.getElementById("bgMusic");
+
+// Start music after first user interaction
+function startMusicOnce() {
+    bgMusic.volume = 0.3;
+    bgMusic.play().catch(() => {});
+    localStorage.setItem("bgMusicPlaying", "true");
+    document.removeEventListener("click", startMusicOnce);
+}
+
+// Check if music should already be playing
+if (localStorage.getItem("bgMusicPlaying") === "true") {
+    bgMusic.volume = 0.3;
+    bgMusic.play().catch(() => {});
+} else {
+    document.addEventListener("click", startMusicOnce);
+}
+</script>
+
+</body>
+</html>

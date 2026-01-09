@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MCQ Quiz | 10 Malay Spices</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --accent: #f4c27a;
+    --card-bg: rgba(255,255,255,0.25);
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #fff;
+    background: url("Pictures/background.png") center/cover fixed;
+}
+
+.overlay {
+    background: rgba(0,0,0,0.45);
+    min-height: 100vh;
+}
+
+/* NAV */
+nav {
+    text-align: center;
+    padding: 16px;
+    background: rgba(0,0,0,0.55);
+}
+
+nav a {
+    color: #fff;
+    margin: 0 16px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* CONTENT */
+.content {
+    max-width: 900px;
+    margin: auto;
+    padding: 90px 20px 60px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* QUESTION CARD */
+.question {
+    background: var(--card-bg);
+    backdrop-filter: blur(6px);
+    border-radius: 22px;
+    padding: 28px;
+    margin-bottom: 30px;
+}
+
+.question h3 {
+    color: var(--accent);
+}
+
+/* OPTIONS */
+.option {
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background: rgba(0,0,0,0.35);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.option:hover {
+    background: rgba(0,0,0,0.5);
+}
+
+.option input {
+    margin-right: 10px;
+}
+
+/* BUTTONS */
+button {
+    display: block;
+    margin: 40px auto 10px;
+    padding: 14px 36px;
+    border-radius: 30px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submit-btn {
+    background: var(--accent);
+    color: #000;
+}
+
+.redo-btn {
+    background: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+/* RESULT */
+#result {
+    display: none;
+    text-align: center;
+    font-size: 26px;
+    margin-top: 30px;
+    color: var(--accent);
+}
+
+/* CONFETTI */
+.confetti {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: gold;
+    top: -10px;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 15px;
+    background: rgba(0,0,0,0.6);
+}
+</style>
+</head>
+
+<body>
+<div class="overlay">
+
+<nav>
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT US</a>
+    <a href="function.html">FUNCTION</a>
+    <a href="characteristics.html">CHARACTERISTICS</a>
+    <a href="quiz.html">QUIZ</a>
+</nav>
+
+<section class="content">
+<h1>Malay Spices MCQ Quiz</h1>
+
+<form id="quizForm">
+
+<!-- QUESTIONS -->
+<script>
+const questions = [
+["Which spice gives yellow colour?", "Turmeric", "Clove", "Cinnamon", "Star Anise", 0],
+["Which spice is spicy?", "Ginger", "Cinnamon", "Chili", "Nutmeg", 2],
+["Used in rendang?", "Vanilla", "Lemongrass", "Basil", "Mint", 1],
+["Sweet aromatic spice?", "Pepper", "Cumin", "Cinnamon", "Chili", 2],
+["Spice for soup aroma?", "Clove", "Sugar", "Salt", "Rice", 0],
+["Used in sambal?", "Garlic", "Milk", "Butter", "Cheese", 0],
+["Star-shaped spice?", "Cardamom", "Star Anise", "Nutmeg", "Cumin", 1],
+["Earthy flavour spice?", "Cumin", "Sugar", "Salt", "Honey", 0],
+["Used in teh halia?", "Turmeric", "Ginger", "Pepper", "Cinnamon", 1],
+["Adds citrus aroma?", "Lemongrass", "Clove", "Nutmeg", "Pepper", 0]
+];
+
+document.write(
+questions.map((q,i)=>`
+<div class="question">
+<h3>${i+1}. ${q[0]}</h3>
+${q.slice(1,5).map((opt,j)=>`
+<label class="option">
+<input type="radio" name="q${i}" value="${j}"> ${opt}
+</label>`).join("")}
+</div>`).join("")
+);
+</script>
+
+<button type="button" class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+</form>
+
+<div id="result"></div>
+<button class="redo-btn" onclick="location.reload()">Redo Quiz</button>
+
+</section>
+
+<footer>
+&copy; 2025 Let’s Learn 10 Malay Spices
+</footer>
+
+</div>
+
+<script>
+function submitQuiz() {
+    let score = 0;
+
+    questions.forEach((q,i)=>{
+        const answer = document.querySelector(`input[name="q${i}"]:checked`);
+        if(answer && parseInt(answer.value) === q[5]) {
+            score++;
+        }
+    });
+
+    document.getElementById("result").style.display = "block";
+    document.getElementById("result").innerText =
+        `🎉 You scored ${score} out of 10!`;
+
+    launchConfetti();
+}
+
+/* CONFETTI EFFECT */
+function launchConfetti() {
+    for(let i=0;i<80;i++) {
+        const conf = document.createElement("div");
+        conf.className = "confetti";
+        conf.style.left = Math.random()*100 + "vw";
+        conf.style.background = `hsl(${Math.random()*360},100%,60%)`;
+        conf.style.animationDuration = (Math.random()*2+2)+"s";
+        document.body.appendChild(conf);
+        setTimeout(()=>conf.remove(),4000);
+    }
+}
+</script>
+
+<audio id="bgMusic" src="sounds/background-music.mp3" loop></audio>
+
+<script>
+const bgMusic = document.getElementById("bgMusic");
+
+function startMusicOnce() {
+    bgMusic.volume = 0.3;
+    bgMusic.play().catch(() => {});
+    localStorage.setItem("bgMusicPlaying", "true");
+    document.removeEventListener("click", startMusicOnce);
+}
+
+if (localStorage.getItem("bgMusicPlaying") === "true") {
+    bgMusic.volume = 0.3;
+    bgMusic.play().catch(() => {});
+} else {
+    document.addEventListener("click", startMusicOnce);
+}
+</script>
+
+</body>
+</html>

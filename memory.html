@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Memory Game | 10 Malay Spices</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --accent: #f4c27a;
+    --card-bg: rgba(255,255,255,0.25);
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #fff;
+    background: url("Pictures/background.png") center/cover fixed;
+}
+
+.overlay {
+    background: rgba(0,0,0,0.45);
+    min-height: 100vh;
+}
+
+/* NAV */
+nav {
+    text-align: center;
+    padding: 16px;
+    background: rgba(0,0,0,0.55);
+}
+
+nav a {
+    color: #fff;
+    margin: 0 16px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* CONTENT */
+.content {
+    max-width: 1100px;
+    margin: auto;
+    padding: 90px 20px 60px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 6px;
+}
+
+.subtitle {
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+/* STATS */
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+}
+
+.stat-box {
+    background: var(--card-bg);
+    backdrop-filter: blur(6px);
+    padding: 12px 20px;
+    border-radius: 14px;
+    font-weight: 600;
+}
+
+/* GAME GRID */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+/* CARD */
+.card {
+    width: 140px;
+    height: 160px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s ease;
+    transform-style: preserve-3d;
+}
+
+.card.flip .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* FRONT & BACK */
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 18px;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-front {
+    background: rgba(0,0,0,0.6);
+    font-size: 38px;
+}
+
+.card-back {
+    background: var(--card-bg);
+    backdrop-filter: blur(6px);
+    transform: rotateY(180deg);
+}
+
+.card-back img {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* MATCHED */
+.card.matched {
+    pointer-events: none;
+    opacity: 0.55;
+}
+
+/* BUTTON */
+button {
+    margin-top: 35px;
+    padding: 14px 36px;
+    border-radius: 30px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    background: var(--accent);
+    color: #000;
+}
+
+/* MUSIC BUTTON */
+#musicBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 18px;
+    border-radius: 50px;
+    border: none;
+    background: var(--accent);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* RESULT */
+#winMessage {
+    display: none;
+    font-size: 26px;
+    margin-top: 30px;
+    color: var(--accent);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 15px;
+    background: rgba(0,0,0,0.6);
+    margin-top: 60px;
+}
+</style>
+</head>
+
+<body>
+<div class="overlay">
+
+<nav>
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT US</a>
+    <a href="function.html">FUNCTION</a>
+    <a href="characteristics.html">CHARACTERISTICS</a>
+    <a href="quiz.html">QUIZ</a>
+</nav>
+
+<section class="content">
+<h1>Memory Matching Game</h1>
+<p class="subtitle">Match the same spice images as fast as you can!</p>
+
+<!-- STATS -->
+<div class="stats">
+    <div class="stat-box">⏱ Time: <span id="time">0</span>s</div>
+    <div class="stat-box">🔁 Flips: <span id="flips">0</span></div>
+    <div class="stat-box">⭐ Score: <span id="score">0</span></div>
+</div>
+
+<div class="game-grid" id="gameGrid"></div>
+
+<div id="winMessage">🎉 Congratulations! You matched all the spices!</div>
+
+<button onclick="restartGame()">Restart Game</button>
+</section>
+
+<footer>
+&copy; 2025 Let’s Learn 10 Malay Spices
+</footer>
+
+</div>
+
+<!-- AUDIO -->
+<audio id="flipSound" src="sounds/flip.mp3"></audio>
+<audio id="matchSound" src="sounds/match.mp3"></audio>
+<audio id="winSound" src="sounds/win.mp3"></audio>
+<audio id="bgMusic" src="sounds/bg-music.mp3" loop></audio>
+
+<button id="musicBtn" onclick="toggleMusic()">🔊 Music</button>
+
+<script>
+const spices = [
+    "Pictures/spices/star-anise.jpeg",
+    "Pictures/spices/cinnamon.jpeg",
+    "Pictures/spices/clove.jpeg",
+    "Pictures/spices/turmeric.jpeg",
+    "Pictures/spices/cardamom.jpeg",
+    "Pictures/spices/ginger.jpeg",
+    "Pictures/spices/lemongrass.jpeg",
+    "Pictures/spices/garlic.jpeg",
+    "Pictures/spices/shallot.jpeg",
+    "Pictures/spices/cumin.jpeg"
+];
+
+let flipped = [];
+let matched = 0;
+let flips = 0;
+let score = 0;
+let time = 0;
+let timer;
+let musicStarted = false;
+
+function setupGame() {
+    clearInterval(timer);
+    time = 0;
+    timer = setInterval(() => {
+        time++;
+        document.getElementById("time").textContent = time;
+    }, 1000);
+
+    const grid = document.getElementById("gameGrid");
+    grid.innerHTML = "";
+    flipped = [];
+    matched = 0;
+    flips = 0;
+    score = 0;
+    updateStats();
+    document.getElementById("winMessage").style.display = "none";
+
+    const cards = [...spices, ...spices].sort(() => Math.random() - 0.5);
+
+    cards.forEach(src => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+            <div class="card-inner">
+                <div class="card-front">❓</div>
+                <div class="card-back">
+                    <img src="${src}" alt="Spice">
+                </div>
+            </div>
+        `;
+        card.addEventListener("click", () => flipCard(card, src));
+        grid.appendChild(card);
+    });
+}
+
+function flipCard(card, src) {
+    if (flipped.length === 2 || card.classList.contains("flip")) return;
+
+    document.getElementById("flipSound").play();
+    card.classList.add("flip");
+    flips++;
+    updateStats();
+    flipped.push({ card, src });
+
+    if (flipped.length === 2) {
+        setTimeout(checkMatch, 700);
+    }
+}
+
+function checkMatch() {
+    const [a, b] = flipped;
+
+    if (a.src === b.src) {
+        document.getElementById("matchSound").play();
+        a.card.classList.add("matched");
+        b.card.classList.add("matched");
+        matched++;
+        score += 10;
+
+        if (matched === spices.length) {
+            clearInterval(timer);
+            document.getElementById("winSound").play();
+            document.getElementById("winMessage").style.display = "block";
+        }
+    } else {
+        score = Math.max(0, score - 2);
+        a.card.classList.remove("flip");
+        b.card.classList.remove("flip");
+    }
+
+    flipped = [];
+    updateStats();
+}
+
+function updateStats() {
+    document.getElementById("flips").textContent = flips;
+    document.getElementById("score").textContent = score;
+}
+
+/* MUSIC */
+const bgMusic = document.getElementById("bgMusic");
+
+document.addEventListener("click", () => {
+    if (!musicStarted) {
+        bgMusic.volume = 0.3;
+        bgMusic.play();
+        musicStarted = true;
+    }
+}, { once: true });
+
+function toggleMusic() {
+    if (bgMusic.paused) bgMusic.play();
+    else bgMusic.pause();
+}
+
+function restartGame() {
+    setupGame();
+}
+
+setupGame();
+</script>
+
+</body>
+</html>

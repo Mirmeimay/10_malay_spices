@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About Us | 10 Malay Spices</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --accent: #f4c27a;
+    --card-bg: rgba(255, 255, 255, 0.25);
+    --overlay-bg: rgba(0, 0, 0, 0.45);
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #fff;
+    background: url("Pictures/background.png") center/cover fixed;
+}
+
+/* Overlay */
+.overlay {
+    background-color: var(--overlay-bg);
+    min-height: 100vh;
+}
+
+/* Navigation */
+nav {
+    padding: 16px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 16px;
+    font-weight: 600;
+    position: relative;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    left: 0;
+    bottom: -5px;
+    background: var(--accent);
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* Content */
+.content {
+    max-width: 950px;
+    margin: auto;
+    padding: 90px 20px 50px;
+    text-align: center;
+    animation: fadeDown 1s ease;
+}
+
+.content h1 {
+    font-size: 42px;
+    margin-bottom: 25px;
+}
+
+.content p {
+    font-size: 17px;
+    line-height: 1.7;
+    max-width: 780px;
+    margin: 0 auto 20px;
+}
+
+/* Info Cards */
+.info-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 50px;
+}
+
+.box {
+    background: var(--card-bg);
+    backdrop-filter: blur(6px);
+    border-radius: 18px;
+    padding: 30px 25px;
+    width: 280px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeUp 1s ease;
+}
+
+.box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+}
+
+.box h3 {
+    margin-bottom: 12px;
+    font-size: 22px;
+    color: var(--accent);
+}
+
+.box p {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+}
+
+/* Animations */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="overlay">
+
+<!-- Navigation -->
+<nav>
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT US</a>
+    <a href="function.html">FUNCTION</a>
+    <a href="characteristics.html">CHARACTERISTICS</a>
+    <a href="quiz.html">QUIZ</a>
+</nav>
+
+<!-- Content -->
+<section class="content">
+    <h1>About Us</h1>
+
+    <p>
+        <strong>Let’s Learn 10 Malay Spices</strong> is an educational website
+        designed to introduce users to traditional Malay spices and their
+        importance in local cuisine.
+    </p>
+
+    <p>
+        This platform helps users understand the functions, characteristics,
+        and culinary uses of spices commonly found in Malay cooking,
+        while making learning interactive and enjoyable.
+    </p>
+
+    <div class="info-boxes">
+        <div class="box">
+            <h3>🎯 Our Purpose</h3>
+            <p>
+                To educate users about Malay spices and preserve
+                traditional culinary knowledge in a digital form.
+            </p>
+        </div>
+
+        <div class="box">
+            <h3>📚 Learning Focus</h3>
+            <p>
+                Users explore spice functions, physical characteristics,
+                and their roles in traditional Malay dishes.
+            </p>
+        </div>
+
+        <div class="box">
+            <h3>🎮 Interactive Learning</h3>
+            <p>
+                Quizzes and games help reinforce learning
+                in a fun and engaging way.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    &copy; 2025 Let’s Learn 10 Malay Spices
+</footer>
+
+</div>
+</body>
+</html>

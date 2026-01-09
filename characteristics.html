@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Characteristics | 10 Malay Spices</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --accent: #f4c27a;
+    --card-bg: rgba(255, 255, 255, 0.25);
+    --overlay-bg: rgba(0, 0, 0, 0.45);
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #fff;
+    background: url("Pictures/background.png") center/cover fixed;
+}
+
+/* Overlay */
+.overlay {
+    background-color: var(--overlay-bg);
+    min-height: 100vh;
+}
+
+/* Navigation */
+nav {
+    padding: 16px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 16px;
+    font-weight: 600;
+    position: relative;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    left: 0;
+    bottom: -5px;
+    background: var(--accent);
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* Content */
+.content {
+    max-width: 1200px;
+    margin: auto;
+    padding: 90px 20px 50px;
+}
+
+.content h1 {
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 50px;
+    animation: fadeDown 1s ease;
+}
+
+/* Grid */
+.spice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* Card */
+.spice-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(6px);
+    padding: 25px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeUp 1s ease;
+}
+
+/* Different shapes */
+.rounded {
+    border-radius: 20px;
+}
+
+.cut-corner {
+    border-radius: 20px 0 20px 20px;
+}
+
+.soft-oval {
+    border-radius: 35px;
+}
+
+.spice-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+}
+
+/* Image */
+.spice-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    background-color: rgba(0,0,0,0.3);
+}
+
+/* Text */
+.spice-card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: var(--accent);
+}
+
+.spice-card ul {
+    padding-left: 18px;
+}
+
+.spice-card li {
+    font-size: 15px;
+    margin-bottom: 6px;
+    line-height: 1.6;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+}
+
+/* Animations */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="overlay">
+
+<!-- Navigation -->
+<nav>
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT US</a>
+    <a href="function.html">FUNCTION</a>
+    <a href="characteristics.html">CHARACTERISTICS</a>
+    <a href="quiz.html">QUIZ</a>
+</nav>
+
+<!-- Content -->
+<section class="content">
+<h1>Characteristics of Malay Spices</h1>
+
+<div class="spice-grid">
+
+    <div class="spice-card rounded">
+        <img src="Pictures/spices/star-anise.jpeg" alt="Star Anise">
+        <h3>Star Anise</h3>
+        <ul>
+            <li>Star-shaped and hard</li>
+            <li>Dark brown colour</li>
+            <li>Sweet, licorice-like aroma</li>
+        </ul>
+    </div>
+
+    <div class="spice-card cut-corner">
+        <img src="Pictures/spices/cinnamon.jpeg" alt="Cinnamon">
+        <h3>Cinnamon</h3>
+        <ul>
+            <li>Brown rolled bark</li>
+            <li>Hard texture</li>
+            <li>Sweet and warm aroma</li>
+        </ul>
+    </div>
+
+    <div class="spice-card soft-oval">
+        <img src="Pictures/spices/clove.jpeg" alt="Clove">
+        <h3>Clove</h3>
+        <ul>
+            <li>Nail-shaped, dark brown</li>
+            <li>Strong spicy aroma</li>
+            <li>Aromatic and pungent</li>
+        </ul>
+    </div>
+
+    <div class="spice-card rounded">
+        <img src="Pictures/spices/turmeric.jpeg" alt="Turmeric">
+        <h3>Turmeric</h3>
+        <ul>
+            <li>Bright yellow root</li>
+            <li>Earthy, slightly bitter taste</li>
+            <li>Turns food yellow</li>
+        </ul>
+    </div>
+
+    <div class="spice-card cut-corner">
+        <img src="Pictures/spices/cardamom.jpeg" alt="Cardamom">
+        <h3>Cardamom</h3>
+        <ul>
+            <li>Small green pods</li>
+            <li>Sweet floral aroma</li>
+            <li>Soft and fragrant</li>
+        </ul>
+    </div>
+
+    <div class="spice-card soft-oval">
+        <img src="Pictures/spices/ginger.jpeg" alt="Ginger">
+        <h3>Ginger</h3>
+        <ul>
+            <li>Brown skin, yellow flesh</li>
+            <li>Spicy and warm taste</li>
+            <li>Fresh aroma</li>
+        </ul>
+    </div>
+
+    <div class="spice-card rounded">
+        <img src="Pictures/spices/lemongrass.jpeg" alt="Lemongrass">
+        <h3>Lemongrass</h3>
+        <ul>
+            <li>Long green stalks</li>
+            <li>Strong citrus scent</li>
+            <li>Hard outer layer</li>
+        </ul>
+    </div>
+
+    <div class="spice-card cut-corner">
+        <img src="Pictures/spices/garlic.jpeg" alt="Garlic">
+        <h3>Garlic</h3>
+        <ul>
+            <li>White clove bulbs</li>
+            <li>Strong, pungent aroma</li>
+            <li>Spicy and savoury</li>
+        </ul>
+    </div>
+
+    <div class="spice-card soft-oval">
+        <img src="Pictures/spices/shallot.jpeg" alt="Shallot">
+        <h3>Shallot</h3>
+        <ul>
+            <li>Red-purple skin</li>
+            <li>Sweet, mild spicy taste</li>
+            <li>Small bulb</li>
+        </ul>
+    </div>
+
+    <div class="spice-card rounded">
+        <img src="Pictures/spices/cumin.jpeg" alt="Cumin">
+        <h3>Cumin</h3>
+        <ul>
+            <li>Small brown seeds</li>
+            <li>Earthy and nutty flavour</li>
+            <li>Warm aroma</li>
+        </ul>
+    </div>
+
+</div>
+</section>
+
+<!-- Footer -->
+<footer>
+&copy; 2025 Let’s Learn 10 Malay Spices
+</footer>
+
+</div>
+</body>
+</html>

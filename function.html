@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Functions | 10 Malay foods</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --accent: #f4c27a;
+    --card-bg: rgba(255, 255, 255, 0.25);
+    --overlay-bg: rgba(0, 0, 0, 0.45);
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #fff;
+    background: url("Pictures/background.png") center/cover fixed;
+}
+
+/* Overlay */
+.overlay {
+    background-color: var(--overlay-bg);
+    min-height: 100vh;
+}
+
+/* Navigation */
+nav {
+    padding: 16px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 16px;
+    font-weight: 600;
+    position: relative;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    left: 0;
+    bottom: -5px;
+    background: var(--accent);
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* Content */
+.content {
+    max-width: 1050px;
+    margin: auto;
+    padding: 80px 20px 40px;
+}
+
+.content h1 {
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 50px;
+    animation: fadeDown 1s ease;
+}
+
+/* Spice Card */
+.spice {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 25px;
+    background: var(--card-bg);
+    backdrop-filter: blur(6px);
+    border-radius: 18px;
+    padding: 25px;
+    margin-bottom: 30px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeUp 1s ease;
+}
+
+.spice:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+}
+
+/* Image */
+.spice img {
+    width: 220px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 14px;
+    transition: transform 0.4s;
+}
+
+.spice:hover img {
+    transform: scale(1.07);
+}
+
+/* Text */
+.spice-info {
+    flex: 1;
+}
+
+.spice-info h3 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: var(--accent);
+}
+
+.spice-info p {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.spice-info ul {
+    margin-top: 10px;
+    padding-left: 18px;
+}
+
+.spice-info li {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+}
+
+/* Animations */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="overlay">
+
+<nav>
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT US</a>
+    <a href="function.html">FUNCTION</a>
+    <a href="characteristics.html">CHARACTERISTICS</a>
+    <a href="quiz.html">QUIZ</a>
+</nav>
+
+<section class="content">
+<h1>Functions of Malay foods</h1>
+
+<div class="spice">
+<img src="Pictures/foods/star-anise.jpeg" alt="Star Anise">
+<div class="spice-info">
+<h3>Star Anise</h3>
+<p>Enhances aroma and flavour in Malay dishes.</p>
+<ul>
+<li>Used in rendang and bone soup</li>
+<li>Used in Chinese five-spice powder</li>
+</ul>
+</div>
+</div>
+
+<div class="spice">
+<img src="Pictures/foods/cinnamon.jpeg" alt="Cinnamon">
+<div class="spice-info">
+<h3>Cinnamon</h3>
+<p>Provides a warm and sweet flavour.</p>
+<ul>
+<li>Used in chicken curry, bubur lambuk, desserts</li>
+<li>Once valued higher than gold</li>
+</ul>
+</div>
+</div>
+
+<div class="spice">
+<img src="Pictures/foods/clove.jpeg" alt="Clove">
+<div class="spice-info">
+<h3>Clove</h3>
+<p>Strong aroma that enhances savoury dishes.</p>
+<ul>
+<li>Used in nasi minyak and beef soup</li>
+<li>Natural mouth freshener</li>
+</ul>
+</div>
+</div>
+
+<div class="spice">
+<img src="Pictures/foods/turmeric.jpeg" alt="Turmeric">
+<div class="spice-info">
+<h3>Turmeric</h3>
+<p>Adds colour and earthy flavour.</p>
+<ul>
+<li>Main ingredient in ayam masak kunyit</li>
+<li>Known for anti-inflammatory benefits</li>
+</ul>
+</div>
+</div>
+
+<div class="spice">
+<img src="Pictures/foods/cardamom.jpeg" alt="Cardamom">
+<div class="spice-info">
+<h3>Cardamom</h3>
+<p>Sweet floral aroma for curries and drinks.</p>
+<ul>
+<li>Small green pods</li>
+<li>Soft and fragrant</li>
+</ul>
+</div>
+</div>
+
+<div class="spice">
+<img src="Pictures/foods/ginger.jpeg" alt="Ginger">
+<div class="spice-info">
+<h3>Ginger</h3>
+<p>Adds spiciness and warmth.</p>
+<ul>
+<li>Used in teh halia and masak lemak cili api</li>
+<li>Boosts immunity</li>
+</ul>
+</div>
+</div>
+
+<div class="spice">
+<img src="Pictures/foods/lemongrass.jpeg" alt="Lemongrass">
+<div class="spice-info">
+<h3>Lemongrass</h3>
+<p>Fresh citrus aroma.</p>
+<ul>
+<li>Used in tomyam and ikan bakar</li>
+<li>Can be used for herbal drinks</li>
+</ul>
+</div>
+</div>
+
+<div class="spice">
+<img src="Pictures/foods/garlic.jpeg" alt="Garlic">
+<div class="spice-info">
+<h3>Garlic</h3>
+<p>Base ingredient for many dishes.</p>
+<ul>
+<li>Used in sambal tumis and soups</li>
+<li>Boosts heart health</li>
+</ul>
+</div>
+</div>
+
+<div class="spice">
+<img src="Pictures/foods/shallot.jpeg" alt="Shallot">
+<div class="spice-info">
+<h3>Shallot</h3>
+<p>Adds sweetness and depth.</p>
+<ul>
+<li>Used in sambal and fish curry</li>
+<li>Essential base for Malay sauces</li>
+</ul>
+</div>
+</div>
+
+<div class="spice">
+<img src="Pictures/foods/cumin.jpeg" alt="Cumin">
+<div class="spice-info">
+<h3>Cumin</h3>
+<p>Earthy and nutty flavour.</p>
+<ul>
+<li>Used in dal curry and rempah powder</li>
+<li>Aids digestion</li>
+</ul>
+</div>
+</div>
+
+</section>
+
+<footer>
+&copy; 2025 Let’s Learn 10 Malay foods
+</footer>
+
+</div>
+</body>
+</html>

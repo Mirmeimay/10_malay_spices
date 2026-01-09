@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>True or False | 10 Malay Spices</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --accent: #f4c27a;
+    --box-bg: rgba(0,0,0,0.65);
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #fff;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    transition: background-image 1s ease;
+}
+
+.overlay {
+    min-height: 100vh;
+    background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.3));
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 14px;
+    background: rgba(0,0,0,0.6);
+    text-align: center;
+    z-index: 10;
+}
+
+nav a {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.character {
+    position: absolute;
+    bottom: 0;
+    left: 3vw;
+    width: min(45vw, 450px);
+    max-height: 80vh;
+    z-index: 1; 
+    transition: all 0.6s ease;
+    pointer-events: none;
+}
+
+.character img {
+    width: 100%;
+    height: auto;
+}
+
+.dialogue-box {
+    background: var(--box-bg);
+    padding: 25px;
+    margin: 20px;
+    border-radius: 18px;
+    max-width: 1000px;
+    align-self: center;
+    cursor: pointer;
+    z-index: 5;
+    position: relative;
+}
+
+.name {
+    color: var(--accent);
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.dialogue {
+    font-size: 18px;
+    line-height: 1.6;
+    min-height: 90px;
+    margin-bottom: 20px;
+}
+
+.choices {
+    display: none;
+    gap: 20px;
+    justify-content: center;
+}
+
+.choice-btn {
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    background: var(--accent);
+    color: #000;
+    font-size: 16px;
+}
+
+.question-mode .character {
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.95;
+}
+
+#musicBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 18px;
+    border-radius: 50px;
+    border: none;
+    background: var(--accent);
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.question-mode .overlay::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.dialogue-box {
+    z-index: 5;
+}
+
+.character {
+    z-index: 3;
+}
+
+#endingScreen {
+    animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT US</a>
+    <a href="function.html">FUNCTION</a>
+    <a href="characteristics.html">CHARACTERISTICS</a>
+    <a href="quiz.html">QUIZ</a>
+</nav>
+
+<div class="overlay">
+
+<div class="character">
+    <img id="characterImg">
+</div>
+
+<div class="dialogue-box" id="dialogueBox">
+    <div class="name" id="speaker"></div>
+    <div class="dialogue" id="dialogueText"></div>
+
+    <div class="choices" id="choices">
+        <button class="choice-btn" onclick="answer(true)">TRUE</button>
+        <button class="choice-btn" onclick="answer(false)">FALSE</button>
+    </div>
+</div>
+
+</div>
+
+<audio id="bgMusic" src="sounds/vn-music.mp3" loop></audio>
+<button id="musicBtn" onclick="toggleMusic()">🎵 Music</button>
+
+<script>
+const scenes = [
+{
+    "bg": "Pictures/backgrounds/kitchen1.png",
+    "character": "Pictures/characters/chef-japan.png",
+    "speaker": "Chef Sakuya",
+    "dialogue": [
+        {
+            "text": "Welcome, young chefs. When I first stepped into a Malay kitchen, I believed technique was everything."
+        },
+        {
+            "text": "But spices taught me something deeper — that colour, aroma, and emotion are inseparable."
+        },
+        {
+            "text": "Turmeric, for example, does more than stain your fingers yellow. It carries warmth, earthiness, and tradition."
+        },
+        {
+            "text": "In many Malay dishes, turmeric shapes how the food looks before it even touches the tongue."
+        },
+        {
+            "text": "In Malay cuisine, turmeric is valued mainly for the colour and subtle depth it brings rather than strong spiciness.",
+            "question": true,
+            "correct": true
+        }
+    ]
+},
+    {
+    "bg": "Pictures/backgrounds/kitchen2.png",
+    "character": "Pictures/characters/chef-italy.png",
+    "speaker": "Chef Mario",
+    "dialogue": [
+{
+    "text": "They expect sweetness, or heat — but Malay cooking does not always work the way you expect."
+},
+{
+    "text": "Here, cinnamon whispers. It warms the dish quietly, supporting other spices without stealing the spotlight."
+},
+{
+    "text": "Cinnamon is used in Malay cuisine primarily to make dishes spicy and hot.",
+    "question": true,
+    "correct": false
+}
+    ]
+},
+ {
+    "bg": "Pictures/backgrounds/kitchen3.png",
+    "character": "Pictures/characters/chef-malaysia.png",
+    "speaker": "Chef Siti",
+    "dialogue": [
+        {
+            "text": "Close your eyes for a moment. Can you smell it?"
+        },
+        {
+            "text": "Lemongrass reminds many Malaysians of home — of soups simmering slowly and fires crackling at dusk."
+        },
+        {
+            "text": "It does not overpower. Instead, it lifts a dish, making it feel lighter and fresher."
+        },
+        {
+            "text": "Lemongrass is prized more for its aroma than for adding heat or sweetness.",
+            "question": true,
+            "correct": true
+        }
+    ]
+},
+
+    {
+    "bg": "Pictures/backgrounds/kitchen4.png",
+    "character": "Pictures/characters/chef-france.png",
+    "speaker": "Chef Linguini",
+    "dialogue": [
+        {
+            "text": "In cooking, size does not determine strength."
+        },
+        {
+            "text": "Cloves are tiny, yet a single one can change an entire pot of rice."
+        },
+        {
+            "text": "Malay cooks respect cloves — using them sparingly to perfume a dish, never to dominate it."
+        },
+        {
+            "text": "Cloves are mainly used for fragrance rather than flavour intensity in Malay rice dishes.",
+            "question": true,
+            "correct": true
+        }
+    ]
+},
+    {
+    "bg": "Pictures/backgrounds/kitchen5.png",
+    "character": "Pictures/characters/chef-korea.png",
+    "speaker": "Chef Hwang",
+    "dialogue": [
+{
+    "text": "Ginger wakes the body."
+},
+{
+    "text": "It sharpens flavours, warms the chest, and clears heaviness from rich dishes."
+},
+{
+    "text": "In Malay cooking, ginger is rarely used to create sweetness — its strength lies elsewhere."
+},
+{
+    "text": "Ginger’s main role in Malay cuisine is to provide sweetness similar to sugar.",
+    "question": true,
+    "correct": false
+}
+    ]
+},
+    {
+    "bg": "Pictures/backgrounds/kitchen6.png",
+    "character": "Pictures/characters/chef-china.png",
+    "speaker": "Chef Mei",
+    "dialogue": [
+        {
+            "text": "Some spices announce themselves the moment you see them."
+        },
+        {
+            "text": "Star anise is one of those — beautiful, symmetrical, unforgettable."
+        },
+        {
+            "text": "Its flavour lingers, slightly sweet, slightly licorice-like, shaping broths and slow-cooked dishes."
+        },
+        {
+            "text": "Star anise is recognized both by its shape and its distinctive aromatic flavour.",
+            "question": true,
+            "correct": true
+        }
+    ]
+},
+    {
+    "bg": "Pictures/backgrounds/kitchen7.png",
+    "character": "Pictures/characters/chef-middleeast.png",
+    "speaker": "Chef Hassan",
+    "dialogue": [
+{
+    "text": "Some spices shout. Others hum quietly beneath everything."
+},
+{
+    "text": "Cumin belongs to the earth — grounding dishes with warmth and depth."
+},
+{
+    "text": "Without cumin, many curry blends would feel incomplete, almost hollow."
+},
+{
+    "text": "Cumin is mainly used in curry powders to add sweetness and floral aroma.",
+    "question": true,
+    "correct": false
+}
+    ]
+},
+    {
+    "bg": "Pictures/backgrounds/kitchen8.png",
+    "character": "Pictures/characters/chef-germany.png",
+    "speaker": "Chef Laos",
+    "dialogue": [
+        {
+            "text": "Every cuisine has a starting point."
+        },
+        {
+            "text": "In Malay cooking, garlic often begins the conversation — sizzling quietly before anything else."
+        },
+        {
+            "text": "It supports, strengthens, and deepens flavours without demanding attention."
+        },
+        {
+            "text": "Garlic plays a foundational role rather than being a rare or decorative ingredient in Malay cooking.",
+            "question": true,
+            "correct": true
+        }
+    ]
+},
+    {
+    "bg": "Pictures/backgrounds/kitchen9.png",
+    "character": "Pictures/characters/chef-indonesia.png",
+    "speaker": "Chef Marcille",
+    "dialogue": [
+        {
+            "text": "A good sambal is not about heat alone."
+        },
+        {
+            "text": "It needs sweetness, softness, and aroma — and that is where shallots shine."
+        },
+        {
+            "text": "They melt into sauces, creating depth without harshness."
+        },
+        {
+            "text": "Shallots contribute sweetness and balance rather than sharpness to sambal.",
+            "question": true,
+            "correct": true
+        }
+    ]
+},
+    
+{
+    "bg": "Pictures/backgrounds/graduation.png",
+    "character": "Pictures/characters/you.png",
+    "speaker": "You",
+    "dialogue": [
+        {
+            "text": "I once thought cooking was about following steps."
+        },
+        {
+            "text": "But now I understand — every spice carries memory, culture, and intention."
+        },
+        {
+            "text": "Each lesson changed how I see food, and how I respect those who came before me."
+        },
+        {
+            "text": "This journey has not only taught me about Malay spices..."
+        },
+        {
+            "text": "It has taught me how to listen."
+        }
+    ]
+},
+];
+
+
+let sceneIndex = 0;
+let lineIndex = 0;
+let charIndex = 0;
+let typing;
+let isTyping = false;
+let awaitingAnswer = false;
+let fullText = "";
+let currentCorrect = false;
+
+const dialogueText = document.getElementById("dialogueText");
+const speakerText = document.getElementById("speaker");
+const characterImg = document.getElementById("characterImg");
+const choices = document.getElementById("choices");
+
+function typeText(text) {
+    clearInterval(typing);
+    dialogueText.textContent = "";
+    charIndex = 0;
+    fullText = text;
+    isTyping = true;
+
+    typing = setInterval(() => {
+        dialogueText.textContent += fullText.charAt(charIndex);
+        charIndex++;
+        if (charIndex >= fullText.length) {
+            clearInterval(typing);
+            isTyping = false;
+        }
+    }, 30);
+}
+
+function loadScene() {
+    const scene = scenes[sceneIndex];
+    document.body.style.backgroundImage = `url('${scene.bg}')`;
+    characterImg.src = scene.character;
+    speakerText.textContent = scene.speaker;
+    lineIndex = 0;
+    choices.style.display = "none";
+    awaitingAnswer = false;
+    nextLine();
+}
+
+function nextLine() {
+    const line = scenes[sceneIndex].dialogue[lineIndex];
+    typeText(line.text);
+
+   
+    document.body.classList.remove("question-mode");
+
+    if (line.question) {
+        awaitingAnswer = true;
+        currentCorrect = line.correct;
+        choices.style.display = "flex";
+
+       
+        document.body.classList.add("question-mode");
+    }
+}
+
+function answer(choice) {
+    if (choice === currentCorrect) {
+        document.body.classList.remove("question-mode");
+
+        sceneIndex++;
+        if (sceneIndex < scenes.length) {
+            loadScene();
+        } else {
+            showEnding();
+        }
+    } else {
+        alert("❌ Incorrect. Think carefully and try again.");
+    }
+}
+
+document.getElementById("dialogueBox").addEventListener("click", () => {
+    if (isTyping) {
+        clearInterval(typing);
+        dialogueText.textContent = fullText;
+        isTyping = false;
+        return;
+    }
+
+    if (awaitingAnswer) return;
+
+    lineIndex++;
+
+    if (lineIndex < scenes[sceneIndex].dialogue.length) {
+        nextLine();
+    } else {
+        // END OF CURRENT SCENE
+        if (sceneIndex === scenes.length - 1) {
+            showEnding();
+        }
+    }
+});
+
+
+const bgMusic = document.getElementById("bgMusic");
+document.addEventListener("click", () => {
+    bgMusic.volume = 0.3;
+    bgMusic.play();
+}, { once: true });
+
+function toggleMusic() {
+    bgMusic.paused ? bgMusic.play() : bgMusic.pause();
+}
+
+loadScene();
+
+function showEnding() {
+    document.getElementById("endingScreen").style.display = "block";
+}
+
+function restartStory() {
+    sceneIndex = 0;
+    lineIndex = 0;
+    document.getElementById("endingScreen").style.display = "none";
+    loadScene();
+}
+
+function goToQuiz() {
+    window.location.href = "quiz.html";
+}
+
+</script>
+
+<div id="endingScreen" style="
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    z-index:999;
+    color:#fff;
+    text-align:center;
+    padding-top:15vh;
+">
+    <h1 style="color:#f4c27a;">🎉 Well Done!</h1>
+    <p style="max-width:600px;margin:20px auto;font-size:18px;line-height:1.6;">
+        You have completed your culinary journey and learned the foundations
+        of the 10 Malay spices from chefs around the world.
+    </p>
+
+    <button onclick="restartStory()" class="choice-btn">
+        🔁 Repeat Story
+    </button>
+
+    <br><br>
+
+    <button onclick="goToQuiz()" class="choice-btn">
+        📘 Go to Other Quizzes
+    </button>
+</div>
+
+</body>
+</html>

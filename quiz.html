@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quiz | 10 Malay Spices</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --accent: #f4c27a;
+    --card-bg: rgba(255, 255, 255, 0.25);
+    --overlay-bg: rgba(0, 0, 0, 0.45);
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #fff;
+    background: url("Pictures/background.png") center/cover fixed;
+}
+
+/* Overlay */
+.overlay {
+    background-color: var(--overlay-bg);
+    min-height: 100vh;
+}
+
+/* Navigation */
+nav {
+    padding: 16px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 16px;
+    font-weight: 600;
+    position: relative;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    left: 0;
+    bottom: -5px;
+    background: var(--accent);
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* Content */
+.content {
+    max-width: 1100px;
+    margin: auto;
+    padding: 90px 20px 60px;
+    text-align: center;
+}
+
+.content h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
+    animation: fadeDown 1s ease;
+}
+
+.content p {
+    font-size: 17px;
+    margin-bottom: 50px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+/* Quiz Cards */
+.quiz-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.quiz-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(6px);
+    border-radius: 22px;
+    padding: 35px 25px;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeUp 1s ease;
+}
+
+.quiz-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.3);
+}
+
+/* Icon */
+.quiz-icon {
+    font-size: 46px;
+    margin-bottom: 15px;
+}
+
+/* Card text */
+.quiz-card h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: var(--accent);
+}
+
+.quiz-card p {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+}
+
+/* Animations */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="overlay">
+
+<!-- Navigation -->
+<nav>
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT US</a>
+    <a href="function.html">FUNCTION</a>
+    <a href="characteristics.html">CHARACTERISTICS</a>
+    <a href="quiz.html">QUIZ</a>
+</nav>
+
+<!-- Content -->
+<section class="content">
+    <h1>Quiz Time</h1>
+    <p>
+        Let’s see what you have learned so far!
+        Choose a quiz type below to test your knowledge
+        about Malay spices.
+    </p>
+
+    <div class="quiz-grid">
+
+        <!-- MCQ -->
+        <a href="mcq.html" class="quiz-card">
+            <div class="quiz-icon">📝</div>
+            <h3>Multiple Choice Questions</h3>
+            <p>
+                Answer multiple choice questions to test
+                your understanding of Malay spices.
+            </p>
+        </a>
+
+        <!-- Memory Game -->
+        <a href="memory.html" class="quiz-card">
+            <div class="quiz-icon">🧠</div>
+            <h3>Memory Game</h3>
+            <p>
+                Match spices with their characteristics
+                in a fun memory-based challenge.
+            </p>
+        </a>
+
+        <!-- True / False -->
+        <a href="truefalse.html" class="quiz-card">
+            <div class="quiz-icon">✅</div>
+            <h3>True or False</h3>
+            <p>
+                Decide whether each statement about
+                Malay spices is true or false.
+            </p>
+        </a>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    &copy; 2025 Let’s Learn 10 Malay Spices
+</footer>
+
+</div>
+</body>
+</html>
